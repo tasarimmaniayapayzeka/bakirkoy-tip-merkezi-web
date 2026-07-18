@@ -1,0 +1,19 @@
+/*
+Theme Name: Bakırköy Tıp Merkezi
+Theme URI: https://ornek.com.tr/
+Author: Tasarım Manias
+Author URI: https://ornek.com.tr/
+Description: Özel Bakırköy Tıp Merkezi statik demo tasarımının WordPress teması. Hekim, tıbbi birim ve sağlık raporu içerik tipleri; mevzuat künyesi ve E-E-A-T odaklı sağlık rehberi şablonları içerir.
+Version: 0.1.0
+Requires at least: 6.0
+Requires PHP: 7.4
+License: GNU General Public License v2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: bakirkoy-tip
+Tags: health, medical, custom-post-types
+
+NOT: Bu dosya yalnızca WordPress tema başlığı içindir.
+Gerçek stiller functions.php üzerinden assets/css/style.css dosyasından
+(statik demodaki style.css'in temaya kopyalanmış hali) enqueue edilir.
+Bu dosyaya stil ekleMEyin; tasarım tek kaynaktan (assets/css/style.css) yönetilir.
+*/

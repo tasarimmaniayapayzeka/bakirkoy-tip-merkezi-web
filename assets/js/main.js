@@ -1,5 +1,20 @@
 /* Özel Bakırköy Tıp Merkezi — site geneli JS
-   Mobil menü: paneli mevcut .nav linklerinden dinamik kurar (15 sayfada HTML tekrarı yok) */
+   1) Telefon maskesi: tüm tel inputlarında 0XXX XXX XX XX biçimi
+   2) Mobil menü: paneli mevcut .nav linklerinden dinamik kurar (sayfalarda HTML tekrarı yok) */
+(function(){
+  document.querySelectorAll('input[type="tel"]').forEach(function(inp){
+    inp.addEventListener('input', function(){
+      var d = inp.value.replace(/\D/g, '');
+      if (d && d[0] === '5') d = '0' + d;      // 5XX → 05XX
+      d = d.slice(0, 11);
+      var out = d;
+      if (d.length > 4) out = d.slice(0,4) + ' ' + d.slice(4);
+      if (d.length > 7) out = out.slice(0,8) + ' ' + out.slice(8);
+      if (d.length > 9) out = out.slice(0,11) + ' ' + out.slice(11);
+      inp.value = out;
+    });
+  });
+})();
 (function(){
   var burger = document.querySelector('.burger');
   var header = document.querySelector('.header');

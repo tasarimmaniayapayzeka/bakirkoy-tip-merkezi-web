@@ -16,7 +16,7 @@
   --brand-100:#D7EDE8;
   --brand-50:#EFF7F5;
 
-  --gold-700:#8C6A22;
+  --gold-700:#75581C; /* WCAG: gold-100 zemin üstünde 5.54:1 */
   --gold-600:#A97F2A;
   --gold-500:#C69B3E;
   --gold-400:#D9B45F;
@@ -24,7 +24,7 @@
 
   --ink:#0C1F1D;
   --ink-2:#38504C;
-  --muted:#6B817D;
+  --muted:#5A706C; /* WCAG: beyaz 5.29:1, bg-2 5.03:1 */
   --line:#E3EDEB;
   --bg:#FFFFFF;
   --bg-2:#F6FAF9;
@@ -207,7 +207,7 @@ ul{margin:0; padding:0; list-style:none}
   background:#fff; color:var(--ink); border-radius:var(--radius-l);
   padding:1.35rem 1.5rem; box-shadow:var(--shadow-l); border:1px solid var(--line);
 }
-.float-card h3{font-size:1rem; margin-bottom:.15rem}
+.float-card h3,.float-card .fc-t{font-size:1rem; font-weight:800; letter-spacing:-.02em; line-height:1.15; margin:0 0 .15rem}
 .float-card p{font-size:.85rem; color:var(--muted); margin-bottom:1rem}
 .float-card .row{display:flex; align-items:center; gap:.7rem; margin-bottom:.65rem; font-size:.88rem}
 .float-card .row svg{width:18px; height:18px; color:var(--brand-600); flex:none}
@@ -391,7 +391,7 @@ ul{margin:0; padding:0; list-style:none}
 .footer-grid{display:grid; grid-template-columns:1.5fr 1fr 1fr 1.2fr; gap:2.5rem; padding-bottom:3rem}
 @media (max-width:900px){ .footer-grid{grid-template-columns:1fr 1fr} }
 @media (max-width:560px){ .footer-grid{grid-template-columns:1fr} }
-.footer h4{color:#fff; font-size:.95rem; margin-bottom:1.1rem; letter-spacing:.02em}
+.footer h3,.footer h4{color:#fff; font-size:.95rem; margin-bottom:1.1rem; letter-spacing:.02em}
 .footer li{margin-bottom:.6rem}
 .footer a:hover{color:var(--gold-400)}
 .footer .logo-text strong{color:#fff}
