@@ -65,6 +65,10 @@ ul{margin:0; padding:0; list-style:none}
   background:var(--brand-900); color:#fff; padding:.9rem 1.4rem; border-radius:0 0 12px 0;
 }
 .skip:focus{left:0}
+.sr-only{
+  position:absolute; width:1px; height:1px; padding:0; margin:-1px;
+  overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0;
+}
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.01ms !important; transition-duration:.01ms !important; scroll-behavior:auto !important}
 }
@@ -370,6 +374,7 @@ ul{margin:0; padding:0; list-style:none}
 .form-card{
   background:#fff; border:1px solid var(--line); border-radius:var(--radius-l);
   padding:clamp(1.5rem,3vw,2.5rem); box-shadow:var(--shadow);
+  color:var(--ink); /* koyu bölüm içinde de metin okunur kalsın (WCAG) */
 }
 .field{margin-bottom:1.1rem}
 .field label{display:block; font-weight:700; font-size:.92rem; margin-bottom:.45rem}
@@ -423,7 +428,7 @@ ul{margin:0; padding:0; list-style:none}
 }
 .mobilebar svg{width:20px; height:20px}
 .mb-call{background:var(--brand-700); color:#fff}
-.mb-wa{background:#1FA855; color:#fff}
+.mb-wa{background:#12753A; color:#fff} /* WCAG: beyaz metinle 5.78:1 */
 .mb-app{background:var(--gold-500); color:#231A05}
 @media (max-width:1080px){
   .mobilebar{display:grid}
