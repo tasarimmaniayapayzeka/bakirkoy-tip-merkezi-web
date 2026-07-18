@@ -24,18 +24,35 @@
   .sym-note{color:var(--muted); font-size:.9rem; margin:.4rem 0 1.75rem}
   .sym-list{border:1px solid var(--line); border-radius:var(--radius-l); overflow:hidden; background:#fff}
   .sym-list li{
-    display:flex; align-items:center; justify-content:space-between; gap:1.25rem;
-    padding:1rem 1.35rem; border-bottom:1px solid var(--line);
+    position:relative; display:flex; align-items:center; justify-content:space-between; gap:1.25rem;
+    padding:1rem 1.35rem; border-bottom:1px solid var(--line); cursor:default;
+    transition:background .25s ease, padding-left .25s ease;
   }
   .sym-list li:last-child{border-bottom:0}
   .sym-list li:nth-child(odd){background:var(--bg-2)}
-  .sym-sig{font-size:.98rem; color:var(--ink-2); font-weight:600}
+  /* Hover: soldan büyüyen altın şerit (dept kartlarıyla aynı dil) + yeşile çalan zemin */
+  .sym-list li::before{
+    content:""; position:absolute; left:0; top:0; bottom:0; width:4px;
+    background:linear-gradient(180deg, var(--gold-400), var(--gold-600));
+    transform:scaleY(0); transform-origin:center; transition:transform .28s ease;
+  }
+  .sym-list li:hover{background:var(--brand-50); padding-left:1.75rem}
+  .sym-list li:hover::before{transform:scaleY(1)}
+  .sym-sig{font-size:.98rem; color:var(--ink-2); font-weight:600; transition:color .25s ease}
+  .sym-list li:hover .sym-sig{color:var(--brand-900)}
   .sym-arrow{color:var(--gold-600); flex:none}
-  .sym-arrow svg{width:18px; height:18px; display:block}
+  .sym-arrow svg{width:18px; height:18px; display:block; transition:transform .28s ease}
+  .sym-list li:hover .sym-arrow svg{transform:translateX(6px)}
   .sym-dep{
     flex:none; display:inline-flex; align-items:center; gap:.5rem;
     background:var(--brand-50); color:var(--brand-800); border:1px solid var(--brand-100);
     border-radius:999px; padding:.4rem .9rem; font-weight:700; font-size:.86rem; white-space:nowrap;
+    transition:background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease, box-shadow .25s ease;
+  }
+  /* Hover: rozet dolu yeşile döner — nereye gideceği netleşir */
+  .sym-list li:hover .sym-dep{
+    background:var(--brand-700); color:#fff; border-color:var(--brand-700);
+    transform:translateY(-1px); box-shadow:0 6px 14px rgba(18,93,84,.25);
   }
   @media (max-width:640px){
     .sym-list li{flex-direction:column; align-items:flex-start; gap:.55rem}
