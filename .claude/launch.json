@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "bakirkoy-tip-merkezi",
+      "runtimeExecutable": "npx",
+      "runtimeArgs": ["--yes", "http-server", ".", "-p", "7940", "-c-1"],
+      "port": 7940
+    }
+  ]
+}
