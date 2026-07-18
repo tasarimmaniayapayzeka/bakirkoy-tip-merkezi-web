@@ -1,0 +1,4 @@
+# DEMO SUNUM — temsili içerik; arama motorlarında listelenmemeli.
+# Gerçek yayına geçişte bu dosya sitemap'li sürümle değiştirilecek.
+User-agent: *
+Disallow: /

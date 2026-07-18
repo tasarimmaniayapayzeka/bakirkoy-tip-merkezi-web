@@ -431,6 +431,21 @@ ul{margin:0; padding:0; list-style:none}
   html{scroll-padding-bottom:90px}
 }
 
+/* --- Mobil menü paneli (main.js kurar) ---------------------------------- */
+.mnav{
+  position:absolute; left:0; right:0; top:100%; background:#fff;
+  border-bottom:1px solid var(--line); box-shadow:var(--shadow-l);
+  padding:.5rem var(--gut) 1.4rem; max-height:calc(100vh - 160px); overflow-y:auto;
+}
+.mnav-list{display:flex; flex-direction:column}
+.mnav-list a{
+  display:flex; align-items:center; min-height:50px; padding:.7rem .35rem;
+  border-bottom:1px solid var(--line); font-weight:600; font-size:1rem; color:var(--ink-2);
+}
+.mnav-list a[aria-current="page"]{color:var(--brand-800)}
+.mnav-cta{display:grid; gap:.6rem; margin-top:1.1rem}
+@media (min-width:1081px){ .mnav{display:none} }
+
 /* --- Sayfa başlığı (iç sayfalar) ---------------------------------------- */
 .pagehead{background:var(--brand-950); color:#fff; padding:clamp(2.5rem,5vw,4rem) 0}
 .pagehead h1{font-size:clamp(1.9rem,4vw,3rem); margin-bottom:.7rem}
