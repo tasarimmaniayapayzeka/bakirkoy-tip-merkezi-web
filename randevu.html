@@ -21,20 +21,31 @@
   ]
 }
 </script>
-<!-- Sayfaya özel stiller (style.css'e dokunulmadı; çakışmayı önlemek için rv- ön ekli sınıflar) -->
+<!-- Sayfaya özel stiller (style.css'e dokunulmadı; sayfa iskeleti rv-, randevu sihirbazı rz- ön ekli sınıflar) -->
 <style>
   .rv-grid{display:grid; grid-template-columns:1.35fr .85fr; gap:clamp(1.5rem,3.5vw,2.75rem); align-items:start}
   @media (max-width:900px){ .rv-grid{grid-template-columns:1fr} }
 
-  /* Adım göstergesi */
-  .rv-steps{display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:1.75rem}
-  .rv-steps li{display:flex; align-items:center; gap:.6rem; font-size:.9rem; font-weight:700; color:var(--ink-2)}
-  .rv-steps .n{
-    width:30px; height:30px; border-radius:50%; background:var(--brand-700); color:#fff;
-    display:grid; place-items:center; font-size:.9rem; flex:none;
+  /* Sihirbaz: adım göstergesi (1-2-3-4) */
+  .rz-steps{display:flex; flex-wrap:wrap; align-items:center; gap:.6rem .9rem; margin:0 0 1.75rem; padding:0; list-style:none}
+  .rz-step{display:flex; align-items:center; gap:.55rem; font-size:.88rem; font-weight:700; color:var(--muted)}
+  .rz-step:not(:last-child)::after{content:""; width:20px; height:2px; background:var(--line); border-radius:2px; margin-left:.9rem}
+  .rz-dot{
+    width:34px; height:34px; border-radius:50%; background:var(--bg-2); border:2px solid var(--line);
+    display:grid; place-items:center; font-size:.88rem; flex:none;
   }
-  .rv-steps .sep{width:22px; height:2px; background:var(--line); border-radius:2px}
-  @media (max-width:520px){ .rv-steps .sep{display:none} }
+  .rz-tick{display:none; width:15px; height:15px}
+  .rz-step.is-active{color:var(--brand-800)}
+  .rz-step.is-active .rz-dot{background:var(--brand-700); border-color:var(--brand-700); color:#fff}
+  .rz-step.is-done{color:var(--brand-700)}
+  .rz-step.is-done .rz-dot{background:var(--brand-50); border-color:var(--brand-500); color:var(--brand-700)}
+  .rz-step.is-done .rz-num{display:none}
+  .rz-step.is-done .rz-tick{display:block}
+  @media (max-width:600px){
+    .rz-step:not(:last-child)::after{display:none}
+    .rz-lbl{display:none}
+    .rz-step.is-active .rz-lbl{display:inline}
+  }
 
   .rv-form-title{font-size:1.3rem; margin-bottom:.35rem}
   .rv-form-sub{color:var(--muted); font-size:.92rem; margin-bottom:1.6rem}
@@ -43,26 +54,96 @@
   .rv-row2{display:grid; grid-template-columns:1fr 1fr; gap:1.1rem}
   @media (max-width:560px){ .rv-row2{grid-template-columns:1fr} }
   .rv-req{color:var(--gold-600)}
-  .rv-optional{font-weight:600; color:var(--muted); font-size:.82rem}
-  .field textarea{min-height:110px; resize:vertical; line-height:1.5}
 
-  /* Başarı kutusu */
-  .rv-success{
-    display:none; background:var(--brand-50); border:1.5px solid var(--brand-300);
-    border-radius:var(--radius-l); padding:2rem 1.75rem; text-align:center;
+  /* Sihirbaz: paneller */
+  .rz-panel[hidden]{display:none}
+  .rz-fieldset{border:0; padding:0; margin:0; min-width:0}
+  .rz-fieldset legend{padding:0; display:block; width:100%}
+  .rz-title{outline:none}
+  .rz-subtitle{font-size:1rem; margin:0 0 .6rem}
+
+  /* Adım 1: branş kartları */
+  .rz-brans-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:.7rem}
+  @media (max-width:640px){ .rz-brans-grid{grid-template-columns:repeat(2,1fr)} }
+  .rz-brans{
+    min-height:52px; padding:.7rem .9rem; border-radius:12px; border:1.5px solid var(--line);
+    background:#fff; color:var(--ink-2); font-weight:700; font-size:.9rem; text-align:center; transition:.18s ease;
   }
-  .rv-success.is-visible{display:block}
-  .rv-success .tick{
+  .rz-brans:hover{border-color:var(--brand-300); background:var(--brand-50); color:var(--brand-800)}
+  .rz-brans.is-selected{background:var(--brand-700); border-color:var(--brand-700); color:#fff}
+
+  /* Adım 2: hekim kartları */
+  .rz-hekim-grid{display:grid; grid-template-columns:repeat(2,1fr); gap:.9rem}
+  @media (max-width:560px){ .rz-hekim-grid{grid-template-columns:1fr} }
+  .rz-hekim{
+    display:flex; align-items:center; gap:.9rem; min-height:72px; padding:.8rem .95rem;
+    border:1.5px solid var(--line); border-radius:14px; background:#fff; text-align:left; transition:.18s ease;
+  }
+  .rz-hekim:hover{border-color:var(--brand-300); background:var(--brand-50)}
+  .rz-hekim.is-selected{border-color:var(--brand-700); box-shadow:0 0 0 3px var(--brand-100)}
+  .rz-hekim img{width:52px; height:52px; border-radius:50%; object-fit:cover; object-position:top; flex:none}
+  .rz-hekim .ico{width:52px; height:52px; border-radius:50%; background:var(--brand-50); display:grid; place-items:center; flex:none}
+  .rz-hekim .ico svg{width:24px; height:24px; color:var(--brand-700)}
+  .rz-hekim strong{display:block; font-size:.95rem; color:var(--ink); line-height:1.3}
+  .rz-hekim strong + span{display:block; font-size:.8rem; color:var(--muted); margin-top:.15rem}
+
+  /* Adım 3: gün + saat */
+  .rz-days{display:grid; grid-template-columns:repeat(7,1fr); gap:.5rem; margin-bottom:1.2rem}
+  @media (max-width:720px){ .rz-days{grid-template-columns:repeat(4,1fr)} }
+  .rz-day{
+    min-height:64px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:.05rem;
+    border:1.5px solid var(--line); border-radius:12px; background:#fff;
+    font-weight:700; font-size:.85rem; color:var(--ink-2); transition:.15s ease;
+  }
+  .rz-day small{font-size:.72rem; font-weight:600; color:var(--muted)}
+  .rz-day:hover:not(:disabled){border-color:var(--brand-300); background:var(--brand-50)}
+  .rz-day.is-selected{background:var(--brand-700); border-color:var(--brand-700); color:#fff}
+  .rz-day.is-selected small{color:var(--brand-100)}
+  .rz-day:disabled{cursor:not-allowed; background:var(--bg-2); opacity:.7}
+  .rz-slots{display:grid; grid-template-columns:repeat(auto-fill,minmax(84px,1fr)); gap:.5rem}
+  .rz-slot{
+    min-height:44px; border:1.5px solid var(--line); border-radius:10px; background:#fff;
+    font-weight:700; font-size:.88rem; color:var(--ink-2); transition:.15s ease;
+  }
+  .rz-slot:hover:not(:disabled){border-color:var(--brand-300); background:var(--brand-50)}
+  .rz-slot.is-selected{background:var(--brand-700); border-color:var(--brand-700); color:#fff}
+  .rz-slot:disabled{text-decoration:line-through; color:var(--muted); background:var(--bg-2); cursor:not-allowed; opacity:.75}
+  .rz-legend{display:flex; gap:1.2rem; font-size:.8rem; color:var(--muted); margin:0 0 .8rem}
+  .rz-legend span{display:inline-flex; align-items:center; gap:.4rem}
+  .rz-legend span::before{content:""; width:13px; height:13px; border-radius:4px; border:1.5px solid var(--line); background:#fff}
+  .rz-legend .busy{text-decoration:line-through}
+  .rz-legend .busy::before{background:var(--bg-2)}
+
+  /* Hata mesajı + gezinme */
+  .rz-error{margin:1.1rem 0 0; font-size:.9rem; font-weight:600; color:#8F2B21}
+  .rz-error:not(:empty){background:#FDF1F0; border:1px solid #EFC5C0; border-radius:10px; padding:.7rem 1rem}
+  .rz-nav{display:flex; gap:.8rem; justify-content:space-between; margin-top:1.5rem; padding-top:1.4rem; border-top:1px solid var(--line)}
+  .rz-nav .btn{min-height:48px}
+  .rz-nav .btn[hidden], .form-card[hidden]{display:none}
+  #rzBack:disabled{opacity:.45; cursor:not-allowed; transform:none; box-shadow:none}
+
+  /* Onay ekranı */
+  .rz-confirm{
+    background:#fff; border:1.5px solid var(--brand-300); border-radius:var(--radius-l);
+    padding:clamp(1.75rem,3.5vw,2.5rem); box-shadow:var(--shadow);
+  }
+  .rz-confirm[hidden]{display:none}
+  .rz-confirm-tick{
     width:64px; height:64px; border-radius:50%; margin:0 auto 1.1rem;
     background:var(--brand-700); display:grid; place-items:center;
   }
-  .rv-success .tick svg{width:34px; height:34px; color:#fff}
-  .rv-success h3{font-size:1.35rem; margin-bottom:.5rem; color:var(--brand-900)}
-  .rv-success p{color:var(--ink-2); margin:0 auto 1.25rem; max-width:44ch}
-  .rv-success .ref{
-    display:inline-block; background:#fff; border:1px dashed var(--brand-300); border-radius:10px;
-    padding:.5rem .9rem; font-weight:700; color:var(--brand-800); font-size:.9rem; margin-bottom:1.25rem;
+  .rz-confirm-tick svg{width:34px; height:34px; color:#fff}
+  .rz-confirm-title{font-size:1.35rem; color:var(--brand-900); text-align:center; margin-bottom:.75rem}
+  .rz-band{
+    background:var(--gold-100); border:1px solid var(--gold-400); color:var(--gold-700);
+    border-radius:12px; padding:.85rem 1.1rem; font-weight:700; font-size:.9rem; text-align:center; margin-bottom:1.25rem;
   }
+  .rz-summary{margin:0 0 1.5rem; border:1px solid var(--line); border-radius:14px; overflow:hidden}
+  .rz-summary > div{display:flex; justify-content:space-between; gap:1rem; padding:.75rem 1.1rem; font-size:.93rem; border-bottom:1px dashed var(--line)}
+  .rz-summary > div:last-child{border-bottom:0}
+  .rz-summary dt{color:var(--muted); font-weight:600; flex:none}
+  .rz-summary dd{margin:0; font-weight:700; text-align:right}
+  .rz-confirm-actions{max-width:320px; margin-inline:auto; display:flex; flex-direction:column; gap:.7rem}
 
   /* Sağ bilgi kutusu */
   .rv-aside{display:flex; flex-direction:column; gap:1.1rem}
@@ -99,6 +180,7 @@
   .rv-wa{background:#1FA855; color:#fff; border-color:#1FA855}
   .rv-wa:hover{background:#178F48}
 </style>
+<link rel="stylesheet" href="assets/css/chatbot.css">
 </head>
 <body>
 <a class="skip" href="#main">İçeriğe geç</a>
@@ -115,7 +197,7 @@
     <div class="topbar-actions">
       <a href="tahlil-sonuclari.html">Tahlil Sonuçları</a>
       <a href="anlasmali-kurumlar.html">Anlaşmalı Kurumlar</a>
-      <a href="#" class="lang">EN</a>
+      <a href="en/index.html" class="lang">EN</a>
     </div>
   </div>
 </div>
@@ -170,98 +252,103 @@
 <section class="section">
   <div class="wrap rv-grid">
 
-    <!-- SOL: Form -->
+    <!-- SOL: Çok adımlı randevu sihirbazı -->
     <div>
-      <ol class="rv-steps" aria-hidden="true">
-        <li><span class="n">1</span> Bilgileriniz</li>
-        <span class="sep"></span>
-        <li><span class="n">2</span> Branş &amp; hekim</li>
-        <span class="sep"></span>
-        <li><span class="n">3</span> Sizi arayalım</li>
+      <ol class="rz-steps" id="rzSteps" aria-label="Randevu adımları">
+        <li class="rz-step is-active" data-step="1" aria-current="step">
+          <span class="rz-dot"><span class="rz-num">1</span><svg class="rz-tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="rz-lbl">Branş</span>
+        </li>
+        <li class="rz-step" data-step="2">
+          <span class="rz-dot"><span class="rz-num">2</span><svg class="rz-tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="rz-lbl">Hekim</span>
+        </li>
+        <li class="rz-step" data-step="3">
+          <span class="rz-dot"><span class="rz-num">3</span><svg class="rz-tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="rz-lbl">Gün &amp; Saat</span>
+        </li>
+        <li class="rz-step" data-step="4">
+          <span class="rz-dot"><span class="rz-num">4</span><svg class="rz-tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></span>
+          <span class="rz-lbl">Bilgiler</span>
+        </li>
       </ol>
 
-      <form class="form-card" id="rvForm" action="#" method="post" novalidate>
-        <h2 class="rv-form-title">Randevu talep formu</h2>
-        <p class="rv-form-sub">Yıldızlı <span class="rv-req">*</span> alanlar zorunludur. Bilgileriniz yalnızca randevunuzu oluşturmak için kullanılır.</p>
+      <form class="form-card" id="rzWizard" action="#" method="post" novalidate>
 
-        <div class="rv-row2">
-          <div class="field">
-            <label for="ad">Ad Soyad <span class="rv-req">*</span></label>
-            <input id="ad" name="ad" type="text" autocomplete="name" required>
+        <!-- ADIM 1: Branş -->
+        <section class="rz-panel" data-panel="1" role="group" aria-label="Adım 1 / 4: Branş seçimi">
+          <h2 class="rv-form-title rz-title" tabindex="-1">1. Branş seçin</h2>
+          <p class="rv-form-sub">Randevu almak istediğiniz tıbbi birimi seçin; seçiminizle birlikte bir sonraki adıma geçilir.</p>
+          <div class="rz-brans-grid" id="rzBransGrid"></div>
+        </section>
+
+        <!-- ADIM 2: Hekim (Laboratuvar / Görüntüleme seçilirse atlanır) -->
+        <section class="rz-panel" data-panel="2" role="group" aria-label="Adım 2 / 4: Hekim seçimi" hidden>
+          <h2 class="rv-form-title rz-title" tabindex="-1">2. Hekim seçin</h2>
+          <p class="rv-form-sub" id="rzHekimSub">Dilerseniz belirli bir hekim seçin, dilerseniz seçimi bize bırakın.</p>
+          <div class="rz-hekim-grid" id="rzHekimGrid"></div>
+        </section>
+
+        <!-- ADIM 3: Gün ve saat -->
+        <section class="rz-panel" data-panel="3" role="group" aria-label="Adım 3 / 4: Gün ve saat seçimi" hidden>
+          <h2 class="rv-form-title rz-title" tabindex="-1">3. Gün ve saat seçin</h2>
+          <p class="rv-form-sub">Önümüzdeki 7 gün içinden size uygun günü, ardından saati seçin. Pazar günleri merkezimiz kapalıdır.</p>
+          <div class="rz-days" id="rzDays" role="group" aria-label="Gün seçimi"></div>
+          <div id="rzSlotsWrap" hidden>
+            <h3 class="rz-subtitle" id="rzSlotsTitle">Uygun saatler</h3>
+            <p class="rz-legend" aria-hidden="true"><span>Uygun</span><span class="busy">Dolu</span></p>
+            <div class="rz-slots" id="rzSlots" role="group" aria-label="Saat seçimi"></div>
           </div>
-          <div class="field">
-            <label for="tel">Telefon <span class="rv-req">*</span></label>
-            <input id="tel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="05XX XXX XX XX" required>
-          </div>
+        </section>
+
+        <!-- ADIM 4: İletişim bilgileri -->
+        <section class="rz-panel" data-panel="4" hidden>
+          <fieldset class="rz-fieldset">
+            <legend class="rv-form-title rz-title" tabindex="-1">4. İletişim bilgileriniz</legend>
+            <p class="rv-form-sub">Yıldızlı <span class="rv-req">*</span> alanlar zorunludur. Bilgileriniz yalnızca randevunuzu oluşturmak için kullanılır.</p>
+            <div class="rv-row2">
+              <div class="field">
+                <label for="rzAd">Ad Soyad <span class="rv-req">*</span></label>
+                <input id="rzAd" name="ad" type="text" autocomplete="name" required>
+              </div>
+              <div class="field">
+                <label for="rzTel">Telefon <span class="rv-req">*</span></label>
+                <input id="rzTel" name="tel" type="tel" inputmode="tel" autocomplete="tel" placeholder="05XX XXX XX XX" maxlength="14" required>
+              </div>
+            </div>
+            <label class="consent">
+              <input type="checkbox" id="rzKvkk" name="kvkk" required>
+              <span><a href="kvkk.html">Aydınlatma metnini</a> okudum; iletişim bilgilerimin yalnızca randevu oluşturmak amacıyla işlenmesine açık rıza veriyorum. <span class="rv-req">*</span></span>
+            </label>
+          </fieldset>
+        </section>
+
+        <p class="rz-error" id="rzError" aria-live="polite"></p>
+
+        <div class="rz-nav">
+          <button type="button" class="btn btn--ghost" id="rzBack" disabled>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+            Geri
+          </button>
+          <button type="button" class="btn btn--primary" id="rzNext" hidden>Devam</button>
+          <button type="submit" class="btn btn--gold" id="rzSubmit" hidden>Randevu Talebini Gönder</button>
         </div>
-
-        <div class="field">
-          <label for="brans">Branş <span class="rv-req">*</span></label>
-          <select id="brans" name="brans" required>
-            <option value="" selected disabled>Branş seçiniz</option>
-            <option>Kardiyoloji</option>
-            <option>İç Hastalıkları (Dahiliye)</option>
-            <option>Çocuk Sağlığı ve Hastalıkları</option>
-            <option>Kadın Hastalıkları ve Doğum</option>
-            <option>Ortopedi ve Travmatoloji</option>
-            <option>Genel Cerrahi</option>
-            <option>Göz Hastalıkları</option>
-            <option>Kulak Burun Boğaz</option>
-            <option>Dermatoloji (Cildiye)</option>
-            <option>Nöroloji</option>
-            <option>Üroloji</option>
-            <option>Beslenme ve Diyet</option>
-            <option>Fizik Tedavi ve Rehabilitasyon</option>
-            <option>Psikoloji</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="hekim">Hekim <span class="rv-optional">(opsiyonel)</span></label>
-          <select id="hekim" name="hekim">
-            <option value="farketmez" selected>Farketmez</option>
-            <option>Prof. Dr. Selim Arıkan</option>
-            <option>Uzm. Dr. Elif Kavaklı</option>
-            <option>Op. Dr. Murat Devrim</option>
-            <option>Uzm. Dr. Ayşe Tuna</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="zaman">Tercih edilen gün / zaman <span class="rv-req">*</span></label>
-          <select id="zaman" name="zaman" required>
-            <option value="" selected disabled>Size ne zaman uygun?</option>
-            <option>En kısa sürede (farketmez)</option>
-            <option>Bugün</option>
-            <option>Hafta içi sabah (08:30–12:00)</option>
-            <option>Hafta içi öğleden sonra (12:00–17:00)</option>
-            <option>Hafta içi mesai sonrası (17:00–20:00)</option>
-            <option>Cumartesi (09:00–17:00)</option>
-          </select>
-        </div>
-
-        <div class="field">
-          <label for="not">Kısa not <span class="rv-optional">(opsiyonel)</span></label>
-          <textarea id="not" name="not" placeholder="Şikâyetiniz veya bize iletmek istediğiniz kısa bir not..."></textarea>
-        </div>
-
-        <label class="consent">
-          <input type="checkbox" id="kvkk" name="kvkk" required>
-          <span><a href="kvkk.html">Aydınlatma metnini</a> okudum; iletişim bilgilerimin yalnızca randevu oluşturmak amacıyla işlenmesine açık rıza veriyorum. <span class="rv-req">*</span></span>
-        </label>
-
-        <button class="btn btn--gold btn--wide" type="submit">Randevu Talebi Gönder</button>
-        <p class="hint" style="margin:.9rem 0 0; text-align:center; color:var(--muted); font-size:.82rem">Bu bir randevu talebidir; kesin gün ve saat, sizi aradığımızda birlikte belirlenir.</p>
+        <p class="hint" style="margin:.9rem 0 0; text-align:center; color:var(--muted); font-size:.82rem">Bu bir randevu talebidir; kesin gün ve saat SMS onayı ile netleşir.</p>
       </form>
 
-      <!-- Sahte başarı mesajı (JS ile gösterilir) -->
-      <div class="rv-success" id="rvSuccess" role="status" aria-live="polite" tabindex="-1">
-        <span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
-        <h3>Talebiniz alındı, sizi arayacağız</h3>
-        <p>Randevu talebiniz bize ulaştı. Çalışma saatleri içinde 15 dakika içinde telefonla arayarak size uygun günü ve saati birlikte belirleyeceğiz.</p>
-        <div class="ref">Talep No: <span id="rvRef">RND-000000</span></div>
-        <div style="max-width:320px; margin-inline:auto; display:flex; flex-direction:column; gap:.7rem">
-          <a class="btn btn--primary btn--wide" href="tel:+904440000">Hemen aramak isterim: 444 0 000</a>
+      <!-- ONAY EKRANI (JS ile gösterilir) -->
+      <div class="rz-confirm" id="rzConfirm" hidden>
+        <span class="rz-confirm-tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <h2 class="rz-confirm-title rz-title" id="rzConfirmTitle" tabindex="-1">Randevu talebiniz alındı</h2>
+        <div class="rz-band" role="status">Talebiniz alındı, SMS ile onaylanacak. (DEMO — gerçek randevu oluşturulmadı.)</div>
+        <dl class="rz-summary">
+          <div><dt>Branş</dt><dd id="rzOzBrans">—</dd></div>
+          <div><dt>Hekim</dt><dd id="rzOzHekim">—</dd></div>
+          <div><dt>Tarih / Saat</dt><dd id="rzOzZaman">—</dd></div>
+          <div><dt>Ad Soyad</dt><dd id="rzOzAd">—</dd></div>
+        </dl>
+        <div class="rz-confirm-actions">
+          <button type="button" class="btn btn--primary btn--wide" id="rzYeni">Yeni randevu</button>
           <a class="btn btn--ghost btn--wide" href="index.html">Ana sayfaya dön</a>
         </div>
       </div>
@@ -386,33 +473,354 @@
   </a>
 </nav>
 
-<!-- Demo: gerçek backend yok; form gönderimi sahte başarı mesajı gösterir -->
+<!-- Demo randevu sihirbazı: gerçek backend yok; tüm akış istemci tarafında çalışır -->
 <script>
-  (function () {
-    var form = document.getElementById('rvForm');
-    var success = document.getElementById('rvSuccess');
-    if (!form || !success) return;
+(function () {
+  'use strict';
 
-    form.addEventListener('submit', function (e) {
-      e.preventDefault();
-      // Native doğrulama: zorunlu alanlar ve KVKK onayı boşsa uyarı göster
-      if (!form.checkValidity()) {
-        form.reportValidity();
-        return;
-      }
-      // Temsilî talep numarası üret
-      var ref = 'RND-' + String(Math.floor(100000 + Math.random() * 900000));
-      var refEl = document.getElementById('rvRef');
-      if (refEl) refEl.textContent = ref;
+  /* ---------- Veri (hekimler.html kadrosuyla birebir) ---------- */
+  var BRANSLAR = [
+    { id: 'kardiyoloji',        ad: 'Kardiyoloji' },
+    { id: 'ic-hastaliklari',    ad: 'İç Hastalıkları' },
+    { id: 'cocuk-sagligi',      ad: 'Çocuk Sağlığı' },
+    { id: 'kadin-hastaliklari', ad: 'Kadın Hastalıkları' },
+    { id: 'ortopedi',           ad: 'Ortopedi' },
+    { id: 'genel-cerrahi',      ad: 'Genel Cerrahi' },
+    { id: 'goz',                ad: 'Göz' },
+    { id: 'kbb',                ad: 'KBB' },
+    { id: 'dermatoloji',        ad: 'Dermatoloji' },
+    { id: 'psikoloji',          ad: 'Psikoloji' },
+    { id: 'beslenme-diyet',     ad: 'Beslenme ve Diyet' },
+    { id: 'fizik-tedavi',       ad: 'Fizik Tedavi' },
+    { id: 'laboratuvar',        ad: 'Laboratuvar', birim: true },
+    { id: 'goruntuleme',        ad: 'Görüntüleme', birim: true }
+  ];
+  var HEKIMLER = [
+    { ad: 'Prof. Dr. Selim Arıkan',  brans: 'kardiyoloji',        foto: 'assets/img/hekim-1.webp' },
+    { ad: 'Doç. Dr. Kerem Yıldırım', brans: 'kardiyoloji',        foto: 'assets/img/hekim-3.webp' },
+    { ad: 'Uzm. Dr. Elif Kavaklı',   brans: 'ic-hastaliklari',    foto: 'assets/img/hekim-2.webp' },
+    { ad: 'Uzm. Dr. Onur Kaplan',    brans: 'ic-hastaliklari',    foto: 'assets/img/hekim-3.webp' },
+    { ad: 'Uzm. Dr. Ayşe Tuna',      brans: 'cocuk-sagligi',      foto: 'assets/img/hekim-4.webp' },
+    { ad: 'Uzm. Dr. Deniz Yalçın',   brans: 'cocuk-sagligi',      foto: 'assets/img/hekim-4.webp' },
+    { ad: 'Uzm. Dr. Zeynep Aksoy',   brans: 'kadin-hastaliklari', foto: 'assets/img/hekim-2.webp' },
+    { ad: 'Uzm. Dr. Merve Doğan',    brans: 'kadin-hastaliklari', foto: 'assets/img/hekim-4.webp' },
+    { ad: 'Op. Dr. Barış Ergün',     brans: 'ortopedi',           foto: 'assets/img/hekim-1.webp' },
+    { ad: 'Op. Dr. Tolga Aslan',     brans: 'ortopedi',           foto: 'assets/img/hekim-1.webp' },
+    { ad: 'Op. Dr. Murat Devrim',    brans: 'genel-cerrahi',      foto: 'assets/img/hekim-3.webp' },
+    { ad: 'Op. Dr. Sibel Korkmaz',   brans: 'genel-cerrahi',      foto: 'assets/img/hekim-2.webp' }
+  ];
+  var GUN_UZUN = ['Pazar', 'Pazartesi', 'Salı', 'Çarşamba', 'Perşembe', 'Cuma', 'Cumartesi'];
+  var GUN_KISA = ['Paz', 'Pzt', 'Sal', 'Çrş', 'Prş', 'Cum', 'Cmt'];
+  var AY_UZUN  = ['Ocak', 'Şubat', 'Mart', 'Nisan', 'Mayıs', 'Haziran', 'Temmuz', 'Ağustos', 'Eylül', 'Ekim', 'Kasım', 'Aralık'];
+  var AY_KISA  = ['Oca', 'Şub', 'Mar', 'Nis', 'May', 'Haz', 'Tem', 'Ağu', 'Eyl', 'Eki', 'Kas', 'Ara'];
 
-      // Formu gizle, başarı kutusunu göster
-      form.style.display = 'none';
-      success.classList.add('is-visible');
-      success.focus();
-      success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  /* Önümüzdeki 7 gün (yarından itibaren) */
+  var GUNLER = [];
+  for (var gi = 1; gi <= 7; gi++) {
+    var gd = new Date();
+    gd.setHours(0, 0, 0, 0);
+    gd.setDate(gd.getDate() + gi);
+    GUNLER.push(gd);
+  }
+
+  /* ---------- Eleman referansları ---------- */
+  var form       = document.getElementById('rzWizard');
+  var confirmEl  = document.getElementById('rzConfirm');
+  if (!form || !confirmEl) return;
+  var panels     = form.querySelectorAll('.rz-panel');
+  var stepsEl    = document.querySelectorAll('#rzSteps .rz-step');
+  var bransGrid  = document.getElementById('rzBransGrid');
+  var hekimGrid  = document.getElementById('rzHekimGrid');
+  var hekimSub   = document.getElementById('rzHekimSub');
+  var daysEl     = document.getElementById('rzDays');
+  var slotsWrap  = document.getElementById('rzSlotsWrap');
+  var slotsEl    = document.getElementById('rzSlots');
+  var slotsTitle = document.getElementById('rzSlotsTitle');
+  var errEl      = document.getElementById('rzError');
+  var backBtn    = document.getElementById('rzBack');
+  var nextBtn    = document.getElementById('rzNext');
+  var submitBtn  = document.getElementById('rzSubmit');
+  var adEl       = document.getElementById('rzAd');
+  var telEl      = document.getElementById('rzTel');
+  var kvkkEl     = document.getElementById('rzKvkk');
+
+  /* ---------- Durum ---------- */
+  var state = { brans: null, hekim: '', gunIdx: -1, saat: '' };
+  var current = 1;
+
+  /* ---------- Yardımcılar ---------- */
+  function each(list, fn) { for (var i = 0; i < list.length; i++) fn(list[i], i); }
+  function pad(n) { return (n < 10 ? '0' : '') + n; }
+  function hata(msg) { errEl.textContent = msg || ''; }
+  function bransBul(id) {
+    for (var i = 0; i < BRANSLAR.length; i++) if (BRANSLAR[i].id === id) return BRANSLAR[i];
+    return null;
+  }
+  function birimMi() { var b = bransBul(state.brans); return !!(b && b.birim); }
+  function tarihMetni(d) { return d.getDate() + ' ' + AY_UZUN[d.getMonth()] + ' ' + GUN_UZUN[d.getDay()]; }
+  function secimIsaretle(container, aktif) {
+    each(container.children, function (el) {
+      var on = (el === aktif);
+      el.classList.toggle('is-selected', on);
+      if (el.hasAttribute('aria-pressed')) el.setAttribute('aria-pressed', on ? 'true' : 'false');
     });
-  })();
+  }
+  /* 30 dk aralıklı saatler: hafta içi 08:30–20:00, Cumartesi 09:00–17:00 */
+  function slotSaatleri(d) {
+    var cmt = (d.getDay() === 6);
+    var bas = cmt ? 9 * 60 : 8 * 60 + 30;
+    var bit = cmt ? 17 * 60 : 20 * 60;
+    var out = [];
+    for (var t = bas; t < bit; t += 30) out.push(pad(Math.floor(t / 60)) + ':' + pad(t % 60));
+    return out;
+  }
+  /* Deterministik "dolu" hesabı — Math.random kullanılmaz */
+  function doluMu(gunIdx, saatIdx) { return (gunIdx * 7 + saatIdx) % 3 === 0; }
+
+  /* ---------- Adım gösterimi ---------- */
+  function render() {
+    each(panels, function (p) {
+      p.hidden = (parseInt(p.getAttribute('data-panel'), 10) !== current);
+    });
+    each(stepsEl, function (li) {
+      var n = parseInt(li.getAttribute('data-step'), 10);
+      li.classList.toggle('is-active', n === current);
+      li.classList.toggle('is-done', n < current);
+      if (n === current) li.setAttribute('aria-current', 'step');
+      else li.removeAttribute('aria-current');
+    });
+    backBtn.disabled = (current === 1);
+    nextBtn.hidden   = (current !== 3);
+    submitBtn.hidden = (current !== 4);
+    hata('');
+  }
+  function goTo(n) {
+    current = n;
+    render();
+    var t = form.querySelector('.rz-panel[data-panel="' + n + '"] .rz-title');
+    if (t) t.focus();
+  }
+
+  /* ---------- Adım 1: branş kartları ---------- */
+  each(BRANSLAR, function (b) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'rz-brans';
+    btn.textContent = b.ad;
+    btn.setAttribute('aria-pressed', 'false');
+    btn.addEventListener('click', function () {
+      state.brans = b.id;
+      state.hekim = '';
+      state.gunIdx = -1;
+      state.saat = '';
+      secimIsaretle(bransGrid, btn);
+      gunGridKur();
+      if (b.birim) {
+        /* Laboratuvar / Görüntüleme: hekim adımı atlanır */
+        state.hekim = 'Birim randevusu (hekim seçimi gerekmez)';
+        goTo(3);
+      } else {
+        hekimGridKur();
+        goTo(2);
+      }
+    });
+    bransGrid.appendChild(btn);
+  });
+
+  /* ---------- Adım 2: hekim kartları ---------- */
+  function hekimKart(h) {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'rz-hekim';
+    btn.setAttribute('aria-pressed', 'false');
+    if (h) {
+      var img = document.createElement('img');
+      img.src = h.foto;
+      img.alt = '';
+      img.width = 52;
+      img.height = 52;
+      img.loading = 'lazy';
+      btn.appendChild(img);
+      var kutu = document.createElement('span');
+      var adEl2 = document.createElement('strong');
+      adEl2.textContent = h.ad;
+      var brEl = document.createElement('span');
+      var hb = bransBul(h.brans);
+      brEl.textContent = hb ? hb.ad : '';
+      kutu.appendChild(adEl2);
+      kutu.appendChild(brEl);
+      btn.appendChild(kutu);
+      btn.setAttribute('data-hekim', h.ad);
+    } else {
+      btn.innerHTML =
+        '<span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></span>' +
+        '<span><strong>Farketmez</strong><span>İlk uygun hekim</span></span>';
+      btn.setAttribute('data-hekim', 'Farketmez — ilk uygun hekim');
+    }
+    btn.addEventListener('click', function () {
+      state.hekim = btn.getAttribute('data-hekim');
+      secimIsaretle(hekimGrid, btn);
+      goTo(3);
+    });
+    return btn;
+  }
+  function hekimGridKur() {
+    hekimGrid.innerHTML = '';
+    var b = bransBul(state.brans);
+    var liste = [];
+    each(HEKIMLER, function (h) { if (h.brans === state.brans) liste.push(h); });
+    hekimSub.textContent = liste.length
+      ? (b.ad + ' branşında ' + liste.length + ' hekimimiz görev yapıyor. Dilerseniz seçimi bize bırakın.')
+      : (b.ad + ' branşındaki hekim planlaması randevu onayı sırasında yapılır; seçimi bize bırakabilirsiniz.');
+    hekimGrid.appendChild(hekimKart(null));
+    each(liste, function (h) { hekimGrid.appendChild(hekimKart(h)); });
+  }
+
+  /* ---------- Adım 3: gün + saat ---------- */
+  function gunGridKur() {
+    daysEl.innerHTML = '';
+    slotsEl.innerHTML = '';
+    slotsWrap.hidden = true;
+    each(GUNLER, function (d, idx) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'rz-day';
+      var kapali = (d.getDay() === 0); /* Pazar kapalı */
+      btn.innerHTML = GUN_KISA[d.getDay()] +
+        '<small>' + d.getDate() + ' ' + AY_KISA[d.getMonth()] + '</small>' +
+        (kapali ? '<small>Kapalı</small>' : '');
+      btn.setAttribute('aria-label', tarihMetni(d) + (kapali ? ' — kapalı' : ''));
+      if (kapali) {
+        btn.disabled = true;
+      } else {
+        btn.setAttribute('aria-pressed', 'false');
+        btn.addEventListener('click', function () {
+          state.gunIdx = idx;
+          state.saat = '';
+          secimIsaretle(daysEl, btn);
+          saatGridKur();
+          hata('');
+        });
+      }
+      daysEl.appendChild(btn);
+    });
+  }
+  function saatGridKur() {
+    var d = GUNLER[state.gunIdx];
+    slotsEl.innerHTML = '';
+    slotsTitle.textContent = tarihMetni(d) + ' — uygun saatler';
+    each(slotSaatleri(d), function (s, si) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'rz-slot';
+      btn.textContent = s;
+      if (doluMu(state.gunIdx, si)) {
+        btn.disabled = true;
+        btn.setAttribute('aria-label', s + ' — dolu');
+      } else {
+        btn.setAttribute('aria-pressed', 'false');
+        btn.addEventListener('click', function () {
+          state.saat = s;
+          secimIsaretle(slotsEl, btn);
+          hata('');
+        });
+      }
+      slotsEl.appendChild(btn);
+    });
+    slotsWrap.hidden = false;
+  }
+
+  /* ---------- Gezinme ---------- */
+  backBtn.addEventListener('click', function () {
+    if (current === 1) return;
+    if (current === 3) goTo(birimMi() ? 1 : 2);
+    else goTo(current - 1);
+  });
+  nextBtn.addEventListener('click', function () { /* yalnız adım 3'te görünür */
+    if (state.gunIdx < 0) { hata('Lütfen önce bir gün seçin.'); return; }
+    if (!state.saat)      { hata('Lütfen uygun bir saat seçin.'); return; }
+    goTo(4);
+  });
+
+  /* ---------- Adım 4: 05XX telefon maskesi ---------- */
+  telEl.addEventListener('input', function () {
+    var d = this.value.replace(/\D/g, '');
+    if (d.charAt(0) === '5') d = '0' + d; /* 5XX → 05XX */
+    d = d.slice(0, 11);
+    var out = d;
+    if (d.length > 9)      out = d.slice(0, 4) + ' ' + d.slice(4, 7) + ' ' + d.slice(7, 9) + ' ' + d.slice(9);
+    else if (d.length > 7) out = d.slice(0, 4) + ' ' + d.slice(4, 7) + ' ' + d.slice(7);
+    else if (d.length > 4) out = d.slice(0, 4) + ' ' + d.slice(4);
+    this.value = out;
+  });
+
+  /* ---------- Gönderim + onay ekranı ---------- */
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (current !== 4) return;
+    var ad = adEl.value.trim();
+    if (ad.length < 3) {
+      hata('Lütfen ad ve soyadınızı yazın.');
+      adEl.setAttribute('aria-invalid', 'true');
+      adEl.focus();
+      return;
+    }
+    adEl.removeAttribute('aria-invalid');
+    if (!/^05\d{2} \d{3} \d{2} \d{2}$/.test(telEl.value.trim())) {
+      hata('Lütfen telefon numaranızı 05XX XXX XX XX biçiminde girin.');
+      telEl.setAttribute('aria-invalid', 'true');
+      telEl.focus();
+      return;
+    }
+    telEl.removeAttribute('aria-invalid');
+    if (!kvkkEl.checked) {
+      hata('Devam etmek için KVKK açık rıza kutusunu işaretlemeniz gerekir.');
+      kvkkEl.focus();
+      return;
+    }
+    hata('');
+
+    /* Özet kartını doldur */
+    var b = bransBul(state.brans);
+    var d = GUNLER[state.gunIdx];
+    document.getElementById('rzOzBrans').textContent = b ? b.ad : '—';
+    document.getElementById('rzOzHekim').textContent = state.hekim || '—';
+    document.getElementById('rzOzZaman').textContent = tarihMetni(d) + ' · ' + state.saat;
+    document.getElementById('rzOzAd').textContent = ad;
+
+    /* Adım göstergesinde hepsini tamamlanmış işaretle */
+    each(stepsEl, function (li) {
+      li.classList.remove('is-active');
+      li.classList.add('is-done');
+      li.removeAttribute('aria-current');
+    });
+
+    form.hidden = true;
+    confirmEl.hidden = false;
+    document.getElementById('rzConfirmTitle').focus();
+    confirmEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  });
+
+  /* ---------- Yeni randevu ---------- */
+  document.getElementById('rzYeni').addEventListener('click', function () {
+    state = { brans: null, hekim: '', gunIdx: -1, saat: '' };
+    form.reset();
+    secimIsaretle(bransGrid, null);
+    hekimGrid.innerHTML = '';
+    gunGridKur();
+    adEl.removeAttribute('aria-invalid');
+    telEl.removeAttribute('aria-invalid');
+    confirmEl.hidden = true;
+    form.hidden = false;
+    goTo(1);
+  });
+
+  /* ---------- Başlangıç ---------- */
+  gunGridKur();
+  render(); /* sayfa yüklenirken odak çalınmasın diye goTo değil */
+})();
 </script>
 
+<script defer src="assets/js/chatbot.js"></script>
 </body>
 </html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>International Patients | Bakırköy Medical Center, Istanbul</title>
+<meta name="description" content="Outpatient care for international patients in Bakırköy, Istanbul. 26 specialist physicians, 14 departments, same-day lab results. English-speaking coordinators.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="icon" type="image/svg+xml" href="../assets/img/favicon.svg">
+<meta name="robots" content="noindex,nofollow">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+/* ==== International page-only styles (en- prefix) ==== */
+.en-regnote{
+  background:#F9E3A8; color:#5C4708; border-top:1px solid rgba(92,71,8,.18);
+  text-align:center; font-size:.82rem; font-weight:700; letter-spacing:.02em;
+  padding:.55rem 1rem; line-height:1.5;
+}
+.en-actions{margin-left:auto; display:flex; align-items:center; gap:.7rem; flex:none}
+.en-actions .btn{min-height:46px; padding:.6rem 1.15rem; font-size:.92rem}
+.btn--wa{background:#0E7A43; color:#fff; box-shadow:0 8px 20px rgba(14,122,67,.28)}
+.btn--wa:hover{background:#0B6437}
+.en-flag{font-size:1.05rem; line-height:1}
+@media (max-width:480px){
+  .en-actions{gap:.45rem}
+  .en-actions .btn{padding:.6rem .85rem; font-size:.86rem}
+  .logo-text small{display:none}
+}
+/* Why cards (light section, 4-up) */
+.en-why-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1.1rem}
+@media (max-width:1000px){ .en-why-grid{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:520px){ .en-why-grid{grid-template-columns:1fr} }
+.en-why{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius-l);
+  padding:1.6rem 1.4rem; transition:transform .2s ease, box-shadow .2s ease;
+}
+.en-why:hover{transform:translateY(-3px); box-shadow:var(--shadow)}
+.en-why .ico{width:46px; height:46px; border-radius:13px; background:var(--brand-50); display:grid; place-items:center; margin-bottom:1rem}
+.en-why .ico svg{width:23px; height:23px; color:var(--brand-700)}
+.en-why h3{font-size:1.05rem; margin-bottom:.4rem}
+.en-why p{font-size:.9rem; color:var(--ink-2); margin:0; line-height:1.55}
+/* Department chips */
+.en-chips{display:grid; grid-template-columns:repeat(3,1fr); gap:.8rem}
+@media (max-width:900px){ .en-chips{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:520px){ .en-chips{grid-template-columns:1fr} }
+.en-chip{
+  background:#fff; border:1px solid var(--line); border-left:3px solid var(--gold-500);
+  border-radius:var(--radius-s); padding:.85rem 1.05rem; min-height:52px;
+}
+.en-chip strong{display:block; font-size:.95rem; letter-spacing:-.01em}
+.en-chip span{display:block; font-size:.83rem; color:var(--muted); line-height:1.45; margin-top:.1rem}
+/* Journey steps */
+.en-journey-grid{display:grid; grid-template-columns:1.05fr .95fr; gap:clamp(2rem,5vw,4rem); align-items:center}
+@media (max-width:900px){ .en-journey-grid{grid-template-columns:1fr} }
+.en-steps{counter-reset:step; display:flex; flex-direction:column; gap:1.1rem}
+.en-step{display:flex; gap:1.1rem; align-items:flex-start}
+.en-step .num{
+  counter-increment:step; width:44px; height:44px; flex:none; border-radius:50%;
+  background:var(--gold-500); color:#231A05; font-weight:800; font-size:1.1rem;
+  display:grid; place-items:center; box-shadow:0 6px 16px rgba(198,155,62,.3);
+}
+.en-step .num::before{content:counter(step)}
+.en-step h3{font-size:1.05rem; margin-bottom:.25rem}
+.en-step p{font-size:.92rem; color:var(--ink-2); margin:0; line-height:1.55}
+.en-journey-media img{
+  width:100%; aspect-ratio:4/3; object-fit:cover; border-radius:var(--radius-xl); box-shadow:var(--shadow-l);
+}
+.en-journey-media figcaption{font-size:.83rem; color:var(--muted); margin-top:.7rem; text-align:center}
+.en-journey-media{margin:0}
+/* Form section */
+.en-form-grid{display:grid; grid-template-columns:1fr 1fr; gap:clamp(2rem,5vw,4rem); align-items:center}
+@media (max-width:900px){ .en-form-grid{grid-template-columns:1fr} }
+.en-form-points{display:flex; flex-direction:column; gap:.7rem; margin-top:1.4rem}
+.en-form-points li{display:flex; gap:.7rem; align-items:flex-start; font-size:.93rem; color:#C5DCD7}
+.en-form-points svg{width:19px; height:19px; color:var(--gold-400); flex:none; margin-top:.15rem}
+.en-success{
+  background:#fff; border:1px solid var(--line); border-radius:var(--radius-l);
+  padding:clamp(1.75rem,3vw,2.5rem); box-shadow:var(--shadow); text-align:center; color:var(--ink);
+}
+.en-success .tick{
+  width:56px; height:56px; border-radius:50%; background:var(--brand-50);
+  display:grid; place-items:center; margin:0 auto 1rem;
+}
+.en-success .tick svg{width:28px; height:28px; color:var(--brand-600)}
+.en-success h3{font-size:1.25rem; margin-bottom:.6rem}
+.en-success p{font-size:.93rem; color:var(--ink-2); margin-bottom:0}
+/* #HealthTürkiye badge placeholder */
+.en-health-tr{
+  display:inline-flex; align-items:center; gap:.6rem; margin-top:1.2rem;
+  border:1.5px dashed rgba(255,255,255,.35); border-radius:999px; padding:.55rem 1.1rem;
+  font-weight:800; font-size:.9rem; letter-spacing:.02em; color:#EAF3F1;
+}
+.en-health-tr small{font-weight:600; font-size:.72rem; color:#9CBAB5; letter-spacing:.01em}
+/* Footer: 3 columns on this page, responsive */
+.en-footer-grid{grid-template-columns:1.5fr 1fr 1.2fr}
+@media (max-width:900px){ .en-footer-grid{grid-template-columns:1fr 1fr} }
+@media (max-width:560px){ .en-footer-grid{grid-template-columns:1fr} }
+/* Mobile bar: 2 buttons on this page */
+.en-mobilebar{grid-template-columns:repeat(2,1fr)}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<div class="demo-bar">DESIGN MOCKUP — All content is representative.</div>
+<div class="en-regnote">This international section will go live only after the Ministry of Health International Health Tourism Authorization Certificate is obtained.</div>
+
+<!-- Header (standalone: no main nav on the international page) -->
+<header class="header">
+  <div class="wrap">
+    <a class="logo" href="index.html" aria-label="Bakırköy Medical Center — International Patients home">
+      <span class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M3 12h18"/></svg>
+      </span>
+      <span class="logo-text">
+        <strong>Bakırköy Medical Center</strong>
+        <small>International Patients · Istanbul</small>
+      </span>
+    </a>
+    <div class="en-actions">
+      <a class="btn btn--ghost" href="../index.html" hreflang="tr" lang="tr"><span class="en-flag" aria-hidden="true">🇹🇷</span> Türkçe</a>
+      <a class="btn btn--wa" href="https://wa.me/905000000000">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1a11 11 0 0 1-5.9-5.2c-.4-.7-.7-1.5-.7-2.3 0-.8.4-1.4.8-1.7.2-.2.4-.2.6-.2h.4c.2 0 .4 0 .6.4l.8 1.9c.1.2 0 .4-.1.5l-.4.5c-.1.1-.2.3-.1.5.4.8 1.5 2 2.7 2.5.2.1.4.1.5-.1l.6-.7c.1-.2.3-.2.5-.1l1.8.9c.2.1.3.2.3.4 0 .1 0 .5-.1.7z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+<!-- Hero -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="eyebrow">International Patients — Istanbul</span>
+      <h1>World-class outpatient care, <em>minutes from Istanbul Airport shuttle routes</em>.</h1>
+      <p>26 specialist physicians · 14 departments · Same-day lab results. Send your medical reports, receive a written treatment plan before you travel, and complete your visit in central Istanbul.</p>
+      <div class="hero-actions">
+        <a class="btn btn--gold" href="#plan-form">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6M9 11h3"/></svg>
+          Get a Free Treatment Plan
+        </a>
+        <a class="btn btn--outline-light" href="https://wa.me/905000000000">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1a11 11 0 0 1-5.9-5.2c-.4-.7-.7-1.5-.7-2.3 0-.8.4-1.4.8-1.7.2-.2.4-.2.6-.2h.4c.2 0 .4 0 .6.4l.8 1.9c.1.2 0 .4-.1.5l-.4.5c-.1.1-.2.3-.1.5.4.8 1.5 2 2.7 2.5.2.1.4.1.5-.1l.6-.7c.1-.2.3-.2.5-.1l1.8.9c.2.1.3.2.3.4 0 .1 0 .5-.1.7z"/></svg>
+          Chat on WhatsApp
+        </a>
+      </div>
+      <div class="hero-trust">
+        <div><strong>26</strong><span>Specialist physicians</span></div>
+        <div><strong>14</strong><span>Medical departments</span></div>
+        <div><strong>Same day</strong><span>Routine lab results</span></div>
+        <div><strong>27</strong><span>Years in Bakırköy</span></div>
+      </div>
+    </div>
+    <div class="hero-media">
+      <img src="../assets/img/hero-resepsiyon.webp" alt="Reception and waiting area of Bakırköy Medical Center" width="1200" height="900" fetchpriority="high">
+      <div class="float-card">
+        <h3>We reply within 24 hours</h3>
+        <p>English-speaking patient coordinator.</p>
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Written plan before you travel</div>
+        <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> No obligation, no upfront fees</div>
+        <a class="btn btn--primary btn--wide" href="#plan-form">Send Your Reports</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Why us -->
+<section class="section" id="why">
+  <div class="wrap">
+    <div class="sec-head center">
+      <span class="eyebrow">Why Bakırköy Medical Center</span>
+      <h2>A clear, personal process — in English</h2>
+      <p>Outpatient-scale attention with the standards you expect from an international clinic.</p>
+    </div>
+    <div class="en-why-grid">
+      <div class="en-why">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></span>
+        <h3>JCI-style quality goals</h3>
+        <p>Our quality and patient-safety processes are modelled on international accreditation standards, audited internally every quarter.</p>
+      </div>
+      <div class="en-why">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M8 12h8M12 8v8"/><circle cx="12" cy="12" r="9"/></svg></span>
+        <h3>English-speaking coordinators</h3>
+        <p>One dedicated coordinator handles your case from the first message to follow-up — no call centers, no getting lost in translation.</p>
+      </div>
+      <div class="en-why">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6M9 11h3"/></svg></span>
+        <h3>Transparent process</h3>
+        <p>You receive a written evaluation and treatment plan before travelling. Pricing is shared after medical evaluation — no hidden extras.</p>
+      </div>
+      <div class="en-why">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
+        <h3>Central Istanbul location</h3>
+        <p>Bakırköy sits on the European side, with direct Marmaray rail, ferry piers and airport shuttle routes at walking distance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Departments -->
+<section class="section section--tint" id="departments">
+  <div class="wrap">
+    <div class="sec-head">
+      <span class="eyebrow">Medical Departments</span>
+      <h2>14 departments under one roof</h2>
+      <p>Consultation, laboratory and imaging are completed in a single visit, in the same building.</p>
+    </div>
+    <div class="en-chips">
+      <div class="en-chip"><strong>Cardiology</strong><span>ECG, echocardiography, stress testing, rhythm Holter</span></div>
+      <div class="en-chip"><strong>Internal Medicine</strong><span>General check-up, diabetes, thyroid disorders</span></div>
+      <div class="en-chip"><strong>Pediatrics</strong><span>Child health, growth follow-up, vaccinations</span></div>
+      <div class="en-chip"><strong>Obstetrics &amp; Gynecology</strong><span>Women's health, pregnancy follow-up, ultrasound</span></div>
+      <div class="en-chip"><strong>Orthopedics &amp; Traumatology</strong><span>Joint pain, sports injuries, PRP applications</span></div>
+      <div class="en-chip"><strong>General Surgery</strong><span>Hernia, gallbladder, thyroid and breast health</span></div>
+      <div class="en-chip"><strong>Ophthalmology</strong><span>Vision tests, intraocular pressure, retina checks</span></div>
+      <div class="en-chip"><strong>Ear, Nose &amp; Throat</strong><span>Sinusitis, hearing tests, adenoid evaluation</span></div>
+      <div class="en-chip"><strong>Dermatology</strong><span>Skin conditions, mole mapping, hair loss</span></div>
+      <div class="en-chip"><strong>Urology</strong><span>Men's health, kidney and urinary tract care</span></div>
+      <div class="en-chip"><strong>Physical Medicine &amp; Rehabilitation</strong><span>Pain management, physiotherapy programmes</span></div>
+      <div class="en-chip"><strong>Psychology</strong><span>Adult and child counselling, English on request</span></div>
+      <div class="en-chip"><strong>Clinical Laboratory</strong><span>Blood, urine, hormone panels — same-day results</span></div>
+      <div class="en-chip"><strong>Radiology &amp; Imaging</strong><span>X-ray, ultrasound, Doppler, mammography</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Your journey -->
+<section class="section" id="journey">
+  <div class="wrap en-journey-grid">
+    <div>
+      <span class="eyebrow">Your Journey</span>
+      <h2 style="font-size:clamp(1.8rem,3.4vw,2.6rem); margin-bottom:1.5rem">Four simple steps, one contact person</h2>
+      <ol class="en-steps">
+        <li class="en-step">
+          <span class="num" aria-hidden="true"></span>
+          <div>
+            <h3>Send your reports</h3>
+            <p>Share your medical reports and complaints via WhatsApp or the form below. English, German or Turkish — as you prefer.</p>
+          </div>
+        </li>
+        <li class="en-step">
+          <span class="num" aria-hidden="true"></span>
+          <div>
+            <h3>Remote evaluation &amp; plan</h3>
+            <p>The relevant specialist reviews your file. You receive a written evaluation and a proposed treatment plan; pricing is shared after this medical evaluation.</p>
+          </div>
+        </li>
+        <li class="en-step">
+          <span class="num" aria-hidden="true"></span>
+          <div>
+            <h3>Treatment in Istanbul</h3>
+            <p>Your coordinator schedules all appointments back-to-back so consultation, tests and imaging fit into the shortest possible stay.</p>
+          </div>
+        </li>
+        <li class="en-step">
+          <span class="num" aria-hidden="true"></span>
+          <div>
+            <h3>Follow-up at home</h3>
+            <p>You leave with your full file in English. Follow-up questions and check-in calls continue remotely after you return home.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+    <figure class="en-journey-media">
+      <img src="../assets/img/bina-dis.webp" alt="Exterior view of the Bakırköy Medical Center building" width="1200" height="900" loading="lazy">
+      <figcaption>Bakırköy, Istanbul — 6 minutes' walk from Marmaray rail, close to ferry piers.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- Form -->
+<section class="section section--dark" id="plan-form">
+  <div class="wrap en-form-grid">
+    <div>
+      <span class="eyebrow">Free Treatment Plan</span>
+      <h2 style="font-size:clamp(1.8rem,3.4vw,2.6rem); margin-bottom:.9rem">Tell us about your case</h2>
+      <p class="lead">Fill in the form and an English-speaking coordinator will reply within 24 hours on WhatsApp or e-mail.</p>
+      <ul class="en-form-points">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Written evaluation by the relevant specialist</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> No obligation and no upfront payment</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Pricing shared after medical evaluation</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg> Your data is used only to prepare your plan</li>
+      </ul>
+      <div class="hero-actions" style="margin-top:1.6rem; margin-bottom:0">
+        <a class="btn btn--outline-light" href="https://wa.me/905000000000">Prefer WhatsApp? Chat now</a>
+      </div>
+    </div>
+    <div>
+      <form class="form-card" id="intl-form" action="#" method="post" novalidate>
+        <div class="field">
+          <label for="fullname">Full name</label>
+          <input id="fullname" name="fullname" type="text" autocomplete="name" required>
+        </div>
+        <div class="field">
+          <label for="country">Country</label>
+          <select id="country" name="country" autocomplete="country-name" required>
+            <option value="" selected disabled>Select your country</option>
+            <option>United Kingdom</option>
+            <option>Germany</option>
+            <option>Netherlands</option>
+            <option>Azerbaijan</option>
+            <option>United Arab Emirates</option>
+            <option>France</option>
+            <option>Belgium</option>
+            <option>Austria</option>
+            <option>Ireland</option>
+            <option>Sweden</option>
+            <option>Switzerland</option>
+            <option>United States</option>
+            <option>Canada</option>
+            <option>Saudi Arabia</option>
+            <option>Qatar</option>
+            <option>Kuwait</option>
+            <option>Iraq</option>
+            <option>Libya</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="whatsapp">WhatsApp number</label>
+          <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="+44 7XXX XXXXXX" required>
+          <p class="hint">Include your country code, e.g. +44, +49, +971.</p>
+        </div>
+        <div class="field">
+          <label for="department">Department</label>
+          <select id="department" name="department" required>
+            <option value="" selected disabled>Select a department</option>
+            <option>Cardiology</option>
+            <option>Internal Medicine</option>
+            <option>Pediatrics</option>
+            <option>Obstetrics &amp; Gynecology</option>
+            <option>Orthopedics &amp; Traumatology</option>
+            <option>General Surgery</option>
+            <option>Ophthalmology</option>
+            <option>Ear, Nose &amp; Throat</option>
+            <option>Dermatology</option>
+            <option>Urology</option>
+            <option>Physical Medicine &amp; Rehabilitation</option>
+            <option>Psychology</option>
+            <option>Check-up / Laboratory</option>
+            <option>Not sure — please advise</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="message">Your message</label>
+          <textarea id="message" name="message" rows="4" placeholder="Briefly describe your complaint or the treatment you are looking for."></textarea>
+        </div>
+        <label class="consent">
+          <input type="checkbox" name="consent" required>
+          <span>I have read the privacy notice and consent to the processing of my personal and health data solely for preparing my treatment plan, in line with GDPR and Turkish KVKK.</span>
+        </label>
+        <button class="btn btn--gold btn--wide" type="submit">Get a Free Treatment Plan</button>
+        <p class="hint" style="margin:.9rem 0 0; text-align:center; color:var(--muted); font-size:.82rem">Design mockup — no data is transmitted or stored.</p>
+      </form>
+      <div class="en-success" id="form-success" role="status" tabindex="-1" hidden>
+        <span class="tick" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M20 6 9 17l-5-5"/></svg></span>
+        <h3>Thank you — request received</h3>
+        <p>An English-speaking coordinator will contact you on WhatsApp within 24 hours. (Demo page: no data was actually sent.)</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="wrap">
+    <div class="footer-grid en-footer-grid">
+      <div>
+        <a class="logo" href="index.html">
+          <span class="logo-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M12 3v18M3 12h18"/></svg></span>
+          <span class="logo-text"><strong>Bakırköy Medical Center</strong><small>International Patients · Istanbul</small></span>
+        </a>
+        <p class="footer-note">Zuhuratbaba Mah. Örnek Cad. No:00<br>34147 Bakırköy / Istanbul, Türkiye<br><a href="tel:+904440000">+90 444 0 000</a> · <a href="https://wa.me/905000000000">WhatsApp</a> · <a href="mailto:international@ornek.com.tr">international@ornek.com.tr</a></p>
+        <span class="en-health-tr">#HealthTürkiye <small>— official logo to be placed after authorization</small></span>
+      </div>
+      <div>
+        <h4>On this page</h4>
+        <ul>
+          <li><a href="#why">Why choose us</a></li>
+          <li><a href="#departments">Departments</a></li>
+          <li><a href="#journey">Your journey</a></li>
+          <li><a href="#plan-form">Free treatment plan</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Languages</h4>
+        <ul>
+          <li><a href="../index.html" hreflang="tr" lang="tr">🇹🇷 Türkçe — ana sayfa</a></li>
+          <li><span style="opacity:.6">🇬🇧 English — this page</span></li>
+        </ul>
+        <h4 style="margin-top:1.5rem">Working hours</h4>
+        <ul>
+          <li>Mon–Fri 08:30–20:00</li>
+          <li>Saturday 09:00–17:00</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="compliance">
+      <strong>Institution:</strong> Özel Bakırköy Tıp Merkezi (full licensed title) &nbsp;·&nbsp;
+      <strong>Medical director:</strong> Uzm. Dr. [Name Surname] &nbsp;·&nbsp;
+      <strong>Operating licence:</strong> Istanbul Provincial Health Directorate — No: 00000<br>
+      <strong>Regulatory note:</strong> This international patient section is a design mockup. It will be published only after the Ministry of Health <em>International Health Tourism Authorization Certificate</em> is obtained, as required by Turkish health tourism regulations.<br>
+      Content on this page is for information only and does not replace a medical examination or medical advice. Pricing is shared individually after medical evaluation.
+    </div>
+
+    <div class="footer-legal">
+      <span>© 2026 Özel Bakırköy Tıp Merkezi. All rights reserved.</span>
+      <span>Design mockup — not published.</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Mobile fixed CTA -->
+<nav class="mobilebar en-mobilebar" aria-label="Quick contact">
+  <a class="mb-wa" href="https://wa.me/905000000000">
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm5.3 14.1c-.2.6-1.3 1.2-1.8 1.2-.5.1-1 .1-1.7-.1a11 11 0 0 1-5.9-5.2c-.4-.7-.7-1.5-.7-2.3 0-.8.4-1.4.8-1.7.2-.2.4-.2.6-.2h.4c.2 0 .4 0 .6.4l.8 1.9c.1.2 0 .4-.1.5l-.4.5c-.1.1-.2.3-.1.5.4.8 1.5 2 2.7 2.5.2.1.4.1.5-.1l.6-.7c.1-.2.3-.2.5-.1l1.8.9c.2.1.3.2.3.4 0 .1 0 .5-.1.7z"/></svg>
+    WhatsApp
+  </a>
+  <a class="mb-app" href="#plan-form">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6M9 15h6M9 11h3"/></svg>
+    Free Plan
+  </a>
+</nav>
+
+<script>
+(function(){
+  var form = document.getElementById('intl-form');
+  var success = document.getElementById('form-success');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    if(!form.checkValidity()){ form.reportValidity(); return; }
+    form.hidden = true;
+    success.hidden = false;
+    success.focus();
+  });
+})();
+</script>
+
+</body>
+</html>

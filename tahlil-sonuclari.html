@@ -72,7 +72,103 @@
   .tl-help .step .n{width:34px; height:34px; border-radius:10px; background:var(--brand-900); color:var(--gold-400); font-weight:800; display:grid; place-items:center; margin-bottom:.8rem}
   .tl-help .step h3{font-size:1rem; margin-bottom:.3rem}
   .tl-help .step p{font-size:.9rem; color:var(--muted); margin:0}
+
+  /* --- DEMO sonuç ekranı (ts- ön eki) ------------------------------------ */
+  .tl-side[hidden]{display:none}
+
+  .ts-verify{
+    grid-column:1 / -1; background:#fff; border:1px solid var(--line); border-radius:var(--radius-l);
+    box-shadow:var(--shadow); padding:3.2rem 2rem; display:grid; place-items:center; text-align:center; gap:.3rem;
+  }
+  .ts-verify[hidden]{display:none}
+  .ts-spin{
+    width:46px; height:46px; border-radius:50%; border:4px solid var(--brand-100);
+    border-top-color:var(--brand-600); animation:ts-rot .8s linear infinite; margin-bottom:.7rem;
+  }
+  @keyframes ts-rot{to{transform:rotate(360deg)}}
+  .ts-verify strong{font-size:1.08rem; color:var(--ink)}
+  .ts-verify span{font-size:.88rem; color:var(--muted)}
+
+  .ts-result{
+    grid-column:1 / -1; background:#fff; border:1px solid var(--line); border-radius:var(--radius-l);
+    box-shadow:var(--shadow); overflow:hidden;
+  }
+  .ts-result[hidden]{display:none}
+  .ts-head{
+    display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:1rem;
+    padding:1.5rem 1.75rem 1.35rem; border-bottom:1px solid var(--line);
+  }
+  .ts-pt{display:flex; gap:.9rem; align-items:center; min-width:0}
+  .ts-pt .av{width:46px; height:46px; border-radius:50%; background:var(--brand-50); display:grid; place-items:center; flex:none}
+  .ts-pt .av svg{width:24px; height:24px; color:var(--brand-700)}
+  .ts-pt strong{display:block; font-size:1.08rem; letter-spacing:-.01em}
+  .ts-pt small{display:block; font-size:.8rem; color:var(--muted); margin-top:.15rem}
+  .ts-exit{
+    display:inline-flex; align-items:center; gap:.5rem; min-height:44px; padding:.55rem 1.2rem;
+    border:1.5px solid var(--line); border-radius:999px; background:#fff; color:var(--ink-2);
+    font-weight:700; font-size:.88rem; transition:border-color .18s, background .18s, color .18s;
+  }
+  .ts-exit:hover{border-color:var(--brand-500); background:var(--brand-50); color:var(--brand-800)}
+  .ts-exit svg{width:17px; height:17px}
+  .ts-demoband{
+    display:flex; gap:.55rem; align-items:center; background:var(--gold-100); color:var(--gold-700);
+    border-bottom:1px solid #EBD9AE; padding:.65rem 1.75rem; font-size:.82rem; font-weight:700; line-height:1.5;
+  }
+  .ts-demoband svg{width:16px; height:16px; flex:none}
+  .ts-body{padding:1.6rem 1.75rem 1.75rem}
+  @media (max-width:560px){ .ts-head,.ts-body{padding-inline:1.15rem} .ts-demoband{padding-inline:1.15rem} }
+
+  .ts-group{margin-bottom:1.8rem}
+  .ts-group > h3{
+    display:flex; align-items:center; gap:.55rem; font-size:.85rem; letter-spacing:.1em; text-transform:uppercase;
+    color:var(--brand-700); margin-bottom:.75rem;
+  }
+  .ts-group > h3::before{content:""; width:22px; height:2px; background:var(--gold-500); border-radius:2px}
+  .ts-tablewrap{overflow-x:auto; -webkit-overflow-scrolling:touch; border:1px solid var(--line); border-radius:var(--radius)}
+  .ts-table{width:100%; border-collapse:collapse; font-size:.92rem; min-width:620px}
+  .ts-table th,.ts-table td{padding:.75rem 1rem; text-align:left; vertical-align:middle; border-bottom:1px solid var(--line); white-space:nowrap}
+  .ts-table thead th{background:var(--brand-900); color:#fff; font-weight:700; font-size:.8rem; letter-spacing:.02em; border-bottom:0}
+  .ts-table tbody tr:nth-child(even){background:var(--bg-2)}
+  .ts-table tbody tr:last-child td{border-bottom:0}
+  .ts-table td:first-child{font-weight:700; color:var(--ink)}
+  .ts-table td:nth-child(2){font-weight:700}
+
+  .ts-badge{
+    display:inline-flex; align-items:center; gap:.35rem; border-radius:999px; padding:.26rem .7rem;
+    font-size:.76rem; font-weight:700; white-space:nowrap; border:1px solid transparent;
+  }
+  .ts-badge::before{content:""; width:7px; height:7px; border-radius:50%; background:currentColor}
+  .ts-badge--ok{background:#E8F5EC; color:#1B6B3A; border-color:#BFE3CC}
+  .ts-badge--mid{background:#FCF5DC; color:#8A6D0B; border-color:#EFDFA5}
+  .ts-badge--ask{background:#FDEFE2; color:#AE540D; border-color:#F4D3B2}
+
+  .ts-actions{display:flex; flex-wrap:wrap; gap:.75rem; margin:.4rem 0 1.1rem}
+  .ts-actions .btn{min-height:48px; font-size:.92rem; padding:.7rem 1.35rem}
+  .ts-enote{
+    display:flex; gap:.6rem; align-items:flex-start; font-size:.86rem; color:var(--ink-2);
+    background:var(--brand-50); border:1px solid var(--brand-100); border-radius:var(--radius);
+    padding:.85rem 1.05rem; margin-bottom:1rem; line-height:1.6;
+  }
+  .ts-enote svg{width:18px; height:18px; color:var(--brand-600); flex:none; margin-top:.15rem}
+  .ts-warn{
+    display:flex; gap:.6rem; align-items:flex-start; font-size:.88rem; font-weight:600; color:var(--ink);
+    border:1px solid #F0D9C4; border-left:4px solid var(--gold-600); border-radius:var(--radius);
+    padding:.9rem 1.05rem; line-height:1.6; background:#fff;
+  }
+  .ts-warn svg{width:18px; height:18px; color:var(--gold-600); flex:none; margin-top:.15rem}
+
+  .ts-toast{
+    position:fixed; left:50%; bottom:calc(24px + env(safe-area-inset-bottom));
+    transform:translateX(-50%) translateY(16px);
+    background:var(--brand-950); color:#fff; padding:.85rem 1.5rem; border-radius:999px;
+    font-size:.9rem; font-weight:600; box-shadow:var(--shadow-l); z-index:300;
+    opacity:0; pointer-events:none; transition:opacity .25s ease, transform .25s ease;
+    max-width:min(90vw, 420px); text-align:center;
+  }
+  .ts-toast.is-on{opacity:1; transform:translateX(-50%) translateY(0)}
+  @media (max-width:1080px){ .ts-toast{bottom:calc(90px + env(safe-area-inset-bottom))} }
 </style>
+<link rel="stylesheet" href="assets/css/chatbot.css">
 </head>
 <body>
 <a class="skip" href="#main">İçeriğe geç</a>
@@ -89,7 +185,7 @@
     <div class="topbar-actions">
       <a href="tahlil-sonuclari.html" aria-current="page">Tahlil Sonuçları</a>
       <a href="anlasmali-kurumlar.html">Anlaşmalı Kurumlar</a>
-      <a href="#" class="lang">EN</a>
+      <a href="en/index.html" class="lang">EN</a>
     </div>
   </div>
 </div>
@@ -194,6 +290,100 @@
           <span>Bağlantınız şifrelenir. Sağlık verileriniz KVKK ve ilgili sağlık mevzuatı kapsamında korunur, üçüncü kişilerle paylaşılmaz.</span>
         </div>
       </form>
+
+      <!-- Sahte doğrulama animasyonu (DEMO) -->
+      <div class="ts-verify" id="tsVerify" hidden aria-live="polite">
+        <span class="ts-spin" aria-hidden="true"></span>
+        <strong>Kimliğiniz doğrulanıyor…</strong>
+        <span>SMS doğrulaması kontrol ediliyor (demo)</span>
+      </div>
+
+      <!-- DEMO sonuç paneli -->
+      <section class="ts-result" id="tsResult" hidden aria-label="Demo laboratuvar sonuç ekranı">
+        <div class="ts-head">
+          <div class="ts-pt">
+            <span class="av" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 3.6-6.5 8-6.5s8 2.5 8 6.5"/></svg></span>
+            <div>
+              <strong>Örnek Hasta — A*** Y***</strong>
+              <small>Protokol No: DEMO-2026-000123 · Numune Kabul: 16.07.2026 · Rapor: 17.07.2026</small>
+            </div>
+          </div>
+          <button class="ts-exit" type="button" id="tsExit">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5M21 12H9"/></svg>
+            Çıkış
+          </button>
+        </div>
+
+        <div class="ts-demoband" role="note">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+          Bu bir DEMO ekranıdır, gerçek veri değildir. Tüm değerler temsilidir.
+        </div>
+
+        <div class="ts-body">
+
+          <div class="ts-group">
+            <h3>Hemogram (Tam Kan Sayımı)</h3>
+            <div class="ts-tablewrap">
+              <table class="ts-table">
+                <thead>
+                  <tr><th scope="col">Test</th><th scope="col">Sonuç</th><th scope="col">Birim</th><th scope="col">Referans Aralığı</th><th scope="col">Durum</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Hemoglobin</td><td>13,8</td><td>g/dL</td><td>12,0 – 16,0</td><td><span class="ts-badge ts-badge--ok">Normal</span></td></tr>
+                  <tr><td>Hematokrit</td><td>41,5</td><td>%</td><td>36,0 – 46,0</td><td><span class="ts-badge ts-badge--ok">Normal</span></td></tr>
+                  <tr><td>Lökosit (WBC)</td><td>10,4</td><td>10³/µL</td><td>4,0 – 10,0</td><td><span class="ts-badge ts-badge--mid">Sınırda</span></td></tr>
+                  <tr><td>Trombosit</td><td>265</td><td>10³/µL</td><td>150 – 400</td><td><span class="ts-badge ts-badge--ok">Normal</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="ts-group">
+            <h3>Biyokimya</h3>
+            <div class="ts-tablewrap">
+              <table class="ts-table">
+                <thead>
+                  <tr><th scope="col">Test</th><th scope="col">Sonuç</th><th scope="col">Birim</th><th scope="col">Referans Aralığı</th><th scope="col">Durum</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>Glukoz (Açlık)</td><td>101</td><td>mg/dL</td><td>70 – 100</td><td><span class="ts-badge ts-badge--mid">Sınırda</span></td></tr>
+                  <tr><td>Kreatinin</td><td>0,84</td><td>mg/dL</td><td>0,51 – 0,95</td><td><span class="ts-badge ts-badge--ok">Normal</span></td></tr>
+                  <tr><td>ALT</td><td>22</td><td>U/L</td><td>0 – 33</td><td><span class="ts-badge ts-badge--ok">Normal</span></td></tr>
+                  <tr><td>AST</td><td>19</td><td>U/L</td><td>0 – 32</td><td><span class="ts-badge ts-badge--ok">Normal</span></td></tr>
+                  <tr><td>TSH</td><td>2,1</td><td>µIU/mL</td><td>0,27 – 4,20</td><td><span class="ts-badge ts-badge--ok">Normal</span></td></tr>
+                  <tr><td>Vitamin D (25-OH)</td><td>17</td><td>ng/mL</td><td>20 – 50</td><td><span class="ts-badge ts-badge--ask">Hekiminize danışın</span></td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="ts-actions">
+            <button class="btn btn--ghost" type="button" id="tsPdf">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12"/><path d="M7 10l5 5 5-5"/><path d="M5 21h14"/></svg>
+              PDF İndir (demo)
+            </button>
+            <a class="btn btn--primary" href="https://enabiz.gov.tr" target="_blank" rel="noopener">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+              e-Nabız'da Görüntüle
+            </a>
+            <a class="btn btn--gold" href="randevu.html">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M16 3v4M8 3v4M3 11h18"/></svg>
+              Hekiminizden randevu alın
+            </a>
+          </div>
+
+          <div class="ts-enote">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+            <span>Sonuçlarınız T.C. Sağlık Bakanlığı <strong>e-Nabız</strong> sistemine de işlenir; e-Nabız uygulaması veya e-Devlet üzerinden de erişebilirsiniz.</span>
+          </div>
+
+          <div class="ts-warn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4M12 17h.01"/></svg>
+            <span>Sonuç değerlendirmesi yalnızca hekiminiz tarafından yapılmalıdır. Buradaki "Durum" bilgisi tek başına teşhis anlamı taşımaz.</span>
+          </div>
+
+        </div>
+      </section>
 
       <!-- Bilgi paneli -->
       <div class="tl-side">
@@ -331,5 +521,52 @@
   </a>
 </nav>
 
+<!-- DEMO bildirim balonu -->
+<div class="ts-toast" id="tsToast" role="status" aria-live="polite"></div>
+
+<script>
+/* DEMO sonuç ekranı — form intercept + sahte doğrulama (1sn) + çıkış + toast */
+(function(){
+  var form   = document.querySelector('.form-card');
+  var side   = document.querySelector('.tl-side');
+  var verify = document.getElementById('tsVerify');
+  var result = document.getElementById('tsResult');
+  var exitBtn = document.getElementById('tsExit');
+  var pdfBtn  = document.getElementById('tsPdf');
+  var toast   = document.getElementById('tsToast');
+  if(!form || !verify || !result) return;
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    form.hidden = true;
+    if(side) side.hidden = true;
+    verify.hidden = false;
+    verify.scrollIntoView({behavior:'smooth', block:'center'});
+    window.setTimeout(function(){
+      verify.hidden = true;
+      result.hidden = false;
+      result.scrollIntoView({behavior:'smooth', block:'start'});
+    }, 1000);
+  });
+
+  if(exitBtn) exitBtn.addEventListener('click', function(){
+    result.hidden = true;
+    form.hidden = false;
+    if(side) side.hidden = false;
+    form.reset();
+    form.scrollIntoView({behavior:'smooth', block:'start'});
+  });
+
+  var toastTimer;
+  if(pdfBtn && toast) pdfBtn.addEventListener('click', function(){
+    toast.textContent = 'Demo sürümde PDF üretilmez.';
+    toast.classList.add('is-on');
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(function(){ toast.classList.remove('is-on'); }, 2600);
+  });
+})();
+</script>
+
+<script defer src="assets/js/chatbot.js"></script>
 </body>
 </html>
