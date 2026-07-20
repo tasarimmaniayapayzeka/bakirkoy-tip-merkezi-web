@@ -1,4 +1,4 @@
-# Bakırköy Tıp Merkezi — WordPress Teması (iskelet v0.1.0)
+# Avrupa Tıp Merkezi — WordPress Teması (iskelet v0.1.0)
 
 Statik demo sitenin (`bakirkoy-tip-merkezi-web/`) WordPress'e taşınması için hazırlanmış özel tema.
 Tasarım sistemi statik demodaki `assets/css/style.css` ile birebir aynıdır; şablonlar aynı class
@@ -10,7 +10,7 @@ isimlerini kullanır, CSS değişmeden oturur.
 ## 1) Yerel WordPress kurulumu
 
 1. Yerel sunucu (Laragon / LocalWP / XAMPP) üzerinde boş bir WordPress 6.x kurun (PHP 7.4+).
-2. `Ayarlar → Genel`: Site başlığı **Özel Bakırköy Tıp Merkezi**, slogan **Bakırköy · İstanbul**
+2. `Ayarlar → Genel`: Site başlığı **Özel Avrupa Tıp Merkezi**, slogan **Bakırköy · İstanbul**
    (header'daki logo-text bu iki alandan beslenir).
 3. `Ayarlar → Kalıcı bağlantılar`: **Yazı adı** (post name) seçin (CPT rewrite'ları için şart).
 
@@ -29,7 +29,7 @@ isimlerini kullanır, CSS değişmeden oturur.
 
    > `main.js` içindeki mobil menü CTA'sında `randevu.html` ve sabit telefon geçer;
    > WP'ye geçişte bu iki satırı `/randevu/` ve Customizer'daki telefona göre güncelleyin.
-3. `Görünüm → Temalar` → **Bakırköy Tıp Merkezi**'ni etkinleştirin.
+3. `Görünüm → Temalar` → **Avrupa Tıp Merkezi**'ni etkinleştirin.
    (Etkinleştirme sonrası bir kez `Ayarlar → Kalıcı bağlantılar → Kaydet` yapın; CPT rewrite'ları tazelenir.)
 
 ## 3) Customizer ayarları

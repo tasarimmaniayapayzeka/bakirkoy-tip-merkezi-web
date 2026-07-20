@@ -185,7 +185,7 @@ get_header();
 <section class="section section--dark">
   <div class="wrap">
     <div class="sec-head center">
-      <span class="eyebrow"><?php esc_html_e( 'Neden Bakırköy Tıp Merkezi', 'bakirkoy-tip' ); ?></span>
+      <span class="eyebrow"><?php esc_html_e( 'Neden Avrupa Tıp Merkezi', 'bakirkoy-tip' ); ?></span>
       <h2><?php esc_html_e( 'Zincire gitmeden, semtinizde tam donanım', 'bakirkoy-tip' ); ?></h2>
       <p><?php esc_html_e( 'Büyük hastanelerin sıra ve mesafe yükü olmadan, tıp merkezi ölçeğinde kişisel ilgi.', 'bakirkoy-tip' ); ?></p>
     </div>

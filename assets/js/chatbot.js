@@ -1,5 +1,5 @@
 /* ==========================================================================
-   Özel Bakırköy Tıp Merkezi — Sağlık Asistanı (DEMO)
+   Özel Avrupa Tıp Merkezi — Sağlık Asistanı (DEMO)
    Kurallı (rule-based) sohbet motoru — saf vanilla JS, harici istek YOK.
    KVKK sadeliği: localStorage / çerez / sunucu kaydı KULLANILMAZ.
    Tüm DOM'u kendisi kurar; sayfaya eklemek için chatbot.css + bu dosya yeter.

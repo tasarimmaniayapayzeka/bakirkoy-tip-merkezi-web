@@ -27,4 +27,4 @@ http.createServer((req, res) => {
     res.writeHead(200, { 'Content-Type': TYPES[path.extname(filePath).toLowerCase()] || 'application/octet-stream', 'Cache-Control': 'no-cache' });
     fs.createReadStream(filePath).pipe(res);
   });
-}).listen(PORT, () => console.log(`Bakırköy Tıp Merkezi demo → http://localhost:${PORT}`));
+}).listen(PORT, () => console.log(`Avrupa Tıp Merkezi demo → http://localhost:${PORT}`));

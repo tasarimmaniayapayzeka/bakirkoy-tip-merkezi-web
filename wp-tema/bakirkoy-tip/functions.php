@@ -1,6 +1,6 @@
 <?php
 /**
- * Bakırköy Tıp Merkezi tema fonksiyonları.
+ * Avrupa Tıp Merkezi tema fonksiyonları.
  *
  * @package Bakirkoy_Tip
  */

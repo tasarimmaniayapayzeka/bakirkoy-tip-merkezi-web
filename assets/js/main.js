@@ -1,4 +1,4 @@
-/* Özel Bakırköy Tıp Merkezi — site geneli JS
+/* Özel Avrupa Tıp Merkezi — site geneli JS
    1) Telefon maskesi: tüm tel inputlarında 0XXX XXX XX XX biçimi
    2) Mobil menü: paneli mevcut .nav linklerinden dinamik kurar (sayfalarda HTML tekrarı yok) */
 (function(){
