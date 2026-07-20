@@ -153,6 +153,11 @@ ul{margin:0; padding:0; list-style:none}
   display:grid; place-items:center; box-shadow:0 4px 12px rgba(10,58,52,.28);
 }
 .logo-mark svg{width:24px; height:24px; color:var(--gold-400)}
+/* AC marka işareti (tabeladan birebir: italik AC + gülümseme yayı) */
+.logo-ac{display:block; width:72px; height:auto; flex:none}
+.footer .logo-ac{width:78px}
+@media (max-width:600px){ .logo-ac{width:58px} }
+@media (max-width:374px){ .logo-ac{width:50px} }
 .logo-text strong{display:block; font-size:1.02rem; font-weight:800; letter-spacing:-.02em; line-height:1.2; white-space:nowrap}
 .logo-text small{display:block; font-size:.68rem; letter-spacing:.16em; text-transform:uppercase; color:var(--brand-600); font-weight:700}
 
