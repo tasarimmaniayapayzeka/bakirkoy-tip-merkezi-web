@@ -21,10 +21,19 @@
 .btn--wa{background:#0E7A43; color:#fff; box-shadow:0 8px 20px rgba(14,122,67,.28)}
 .btn--wa:hover{background:#0B6437}
 .en-flag{font-size:1.05rem; line-height:1}
-@media (max-width:480px){
+@media (max-width:600px){
   .en-actions{gap:.45rem}
   .en-actions .btn{padding:.6rem .85rem; font-size:.86rem}
   .logo-text small{display:none}
+  /* Dar ekran: WhatsApp yalnız ikon, Türkçe yalnız bayrak, marka küçülür — 375px'e sığar */
+  .en-actions .btn--wa{font-size:0; gap:0; padding:.6rem; min-width:44px}
+  .en-actions .btn--wa svg{width:20px; height:20px}
+  .en-actions .btn--ghost{font-size:0; gap:0; padding:.6rem; min-width:44px}
+  .en-flag{font-size:1.15rem}
+  .header .wrap{gap:.6rem}
+  .logo{gap:.55rem}
+  .logo-mark{width:38px; height:38px}
+  .logo-text strong{font-size:.85rem}
 }
 /* Why cards (light section, 4-up) */
 .en-why-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:1.1rem}
